@@ -1,11 +1,17 @@
-export interface RawHoliday {
+export interface RawEvent {
     title: string;
     date: string;
     notes: string;
     bunting: boolean;
 }
 
-export interface Holiday extends RawHoliday {
+export interface GovResponse {
+    [region: string]: {
+        division: string;
+        events: RawEvent[];
+    };
+}
+
+export interface Holiday extends RawEvent {
     id: string;
-    isEdited: boolean;
 }
