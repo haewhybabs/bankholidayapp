@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { View, ScrollView, RefreshControl, Alert } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useDispatch } from 'react-redux';
 
@@ -10,7 +10,7 @@ import { deleteHoliday } from '@/src/store/holidaySlice';
 import { AppDispatch } from '@/src/store';
 
 // UI Components
-import { Heading } from '@/src/components/ui/Typography';
+import { Heading, Label } from '@/src/components/ui/Typography';
 import { OfflineBanner } from '@/src/components/feedback/OfflineBanner';
 import { SkeletonLoader } from '@/src/components/list/SkeletonLoader';
 import { EmptyState } from '@/src/components/feedback/EmptyState';
@@ -19,6 +19,7 @@ import { HolidayListItem } from '@/src/components/list/HolidayListItem';
 import { ConfirmationModal } from '@/src/components/modals/ConfirmationModal';
 import { useCalendar } from '@/src/hooks/useCalendar';
 import { Holiday } from '@/src/types/holiday';
+import { HomeHeader } from '@/src/components/home/HomeHeader';
 
 export default function HomeScreen() {
     const router = useRouter();
@@ -29,6 +30,7 @@ export default function HomeScreen() {
 
     const [idToDelete, setIdToDelete] = useState<string | null>(null);
     const [isSyncing, setIsSyncing] = useState(false);
+    const insets = useSafeAreaInsets();
 
 
     const { featured, remainder } = useMemo(() => {
@@ -66,19 +68,24 @@ export default function HomeScreen() {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-slate-50">
+        <View className="flex-1 bg-white">
+
+            <View style={{ height: insets.top }} className="bg-white" />
+
+            <HomeHeader onRefresh={refresh} isRefreshing={isLoading} />
+
             <OfflineBanner />
 
             <ScrollView
-                className="flex-1"
+                className="flex-1 bg-slate-50"
+                contentContainerStyle={{ paddingBottom: 20 }}
                 refreshControl={
                     <RefreshControl refreshing={isLoading} onRefresh={refresh} />
                 }
+                showsVerticalScrollIndicator={false}
             >
                 <View className="py-6">
-                    <View className="px-6 mb-6">
-                        <Heading>Bank Holidays</Heading>
-                    </View>
+
 
                     {holidays.length === 0 ? (
                         <EmptyState
@@ -119,6 +126,6 @@ export default function HomeScreen() {
                 onConfirm={handleConfirmDelete}
                 onCancel={() => setIdToDelete(null)}
             />
-        </SafeAreaView>
+        </View>
     );
 }

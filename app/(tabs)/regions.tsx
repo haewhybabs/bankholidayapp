@@ -1,10 +1,7 @@
-import { View, TouchableOpacity, Text } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Check } from 'lucide-react-native';
-import { Heading } from '@/src/components/ui/Typography';
+// app/regions.tsx
 import React from 'react';
-import { Button } from '@/src/components/ui/Button';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, ScrollView } from 'react-native';
+import { ScreenHeader } from '@/src/components/ui/ScreenHeader';
 
 const REGIONS = [
     { id: 'england-and-wales', label: 'England & Wales' },
@@ -13,28 +10,29 @@ const REGIONS = [
 ];
 
 export default function RegionScreen() {
-    const router = useRouter();
-    const [selected, setSelected] = React.useState('england-and-wales');
-
     return (
-        <SafeAreaView className="flex-1 bg-slate-50 p-6">
-            <Heading >Select Region</Heading>
-            {REGIONS.map((region) => (
-                <TouchableOpacity
-                    key={region.id}
-                    onPress={() => setSelected(region.id)}
-                    className="flex-row items-center justify-between bg-white p-5 rounded-2xl mb-3 border border-slate-100"
-                >
-                    <Text className={`text-lg ${selected === region.id ? 'font-bold text-blue-600' : 'text-slate-600'}`}>
-                        {region.label}
-                    </Text>
-                    {selected === region.id && <Check color="#2563eb" size={20} />}
-                </TouchableOpacity>
-            ))}
+        <View className="flex-1 bg-slate-50">
+            <ScreenHeader title="Select Region" />
 
-            <View className="mt-auto mb-10">
-                <Button label="Save Region" onPress={() => router.back()} />
-            </View>
-        </SafeAreaView>
+            <ScrollView className="flex-1 p-6">
+                <Text className="text-slate-400 font-bold uppercase tracking-widest text-[11px] mb-4 ml-1">
+                    Available Regions
+                </Text>
+
+                {REGIONS.map((region) => (
+                    <View
+                        key={region.id}
+                        className="bg-white p-5 rounded-3xl mb-3 border border-slate-100 shadow-sm"
+                    >
+                        <Text className="text-lg font-bold text-slate-800">
+                            {region.label}
+                        </Text>
+                        <Text className="text-slate-500 text-sm mt-1">
+                            Official bank holidays for this territory.
+                        </Text>
+                    </View>
+                ))}
+            </ScrollView>
+        </View>
     );
 }
