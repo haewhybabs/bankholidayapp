@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '../src/store';
@@ -11,7 +11,20 @@ export default function RootLayout() {
             <PersistGate loading={null} persistor={persistor}>
                 <GestureHandlerRootView style={{ flex: 1 }}>
                     <Stack>
-                        <Stack.Screen name="index" options={{ title: 'Bank Holidays' }} />
+
+                        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+
+
+                        <Stack.Screen
+                            name="edit/[id]"
+                            options={{
+                                presentation: 'modal',
+                                headerTitle: 'Edit Holiday',
+                                headerRight: () => (
+                                    <Link href="../" style={{ color: '#2563eb' }}>Cancel</Link>
+                                )
+                            }}
+                        />
                     </Stack>
                 </GestureHandlerRootView>
             </PersistGate>
