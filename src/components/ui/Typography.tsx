@@ -8,7 +8,7 @@ export const Label = ({ children }: { children: string }) => (
 );
 
 export const Heading = ({ children }: { children: string }) => (
-    <Text className="text-2xl font-bold text-slate-900 tracking-tight">
+    <Text className="text-2xl font-bold text-slate-900 tracking-tight mb-6">
         {children}
     </Text>
 );

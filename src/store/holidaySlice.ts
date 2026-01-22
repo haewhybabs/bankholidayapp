@@ -33,6 +33,9 @@ const holidaySlice = createSlice({
                 state.items[index] = action.payload;
             }
         },
+        deleteHoliday: (state, action: PayloadAction<string>) => {
+            state.items = state.items.filter((h) => h.id !== action.payload);
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -50,5 +53,5 @@ const holidaySlice = createSlice({
     },
 });
 
-export const { updateHoliday } = holidaySlice.actions;
+export const { updateHoliday, deleteHoliday } = holidaySlice.actions;
 export default holidaySlice.reducer;

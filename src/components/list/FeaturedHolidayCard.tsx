@@ -2,7 +2,7 @@ import { View, Text, ImageBackground } from 'react-native';
 import { Button } from '../ui/Button';
 import { Holiday } from '@/src/types/holiday';
 
-export const FeaturedHolidayCard = ({ holiday, onAdd }: { holiday: Holiday, onAdd: () => void }) => (
+export const FeaturedHolidayCard = ({ holiday, onAdd, isLoading }: { holiday: Holiday, onAdd: () => void, isLoading?: boolean }) => (
     <View className="px-4 mb-8">
         <View className="bg-white rounded-[40px] shadow-xl shadow-slate-200 overflow-hidden border border-slate-50">
             <ImageBackground
@@ -18,7 +18,7 @@ export const FeaturedHolidayCard = ({ holiday, onAdd }: { holiday: Holiday, onAd
             <View className="p-6">
                 <Text className="text-3xl font-black text-slate-900 mb-1">{holiday.title}</Text>
                 <Text className="text-slate-500 mb-6 text-lg">{holiday.date}</Text>
-                <Button label="Add to Calendar" onPress={onAdd} />
+                <Button label="Add to Calendar" onPress={onAdd} loading={isLoading} />
             </View>
         </View>
     </View>

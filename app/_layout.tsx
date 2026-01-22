@@ -14,9 +14,8 @@ export default function RootLayout() {
                     <GestureHandlerRootView style={{ flex: 1 }}>
                         <Stack
                             screenOptions={{
-                                headerStyle: { backgroundColor: 'white' },
-                                headerShadowVisible: false,
-                                headerTitleStyle: { fontWeight: 'bold', color: '#0f172a' },
+                                headerShown: false,
+                                animation: 'slide_from_right',
                             }}
                         >
                             <Stack.Screen
