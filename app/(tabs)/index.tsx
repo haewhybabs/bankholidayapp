@@ -1,22 +1,46 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
+import { Card } from "@/src/components/ui/Card";
+import { Input } from "@/src/components/ui/Input";
+import { Button } from "@/src/components/ui/Button";
+import React, { useState } from "react";
 
 export default function Home() {
-    return (
-        <View className="flex-1 items-center justify-center bg-slate-50 p-6">
-            <View className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 items-center w-full">
-                <Text className="text-4xl mb-2">🇬🇧</Text>
-                <Text className="text-2xl font-bold text-slate-900">Bank Holiday App</Text>
-                <Text className="text-slate-500 text-center mt-2 mb-6">
-                    NativeWind is working if this card is white and rounded!
-                </Text>
+    const [title, setTitle] = React.useState("");
+    const [date, setDate] = useState(new Date());
 
-                <Link href="/edit/test-id" asChild>
-                    <TouchableOpacity className="bg-blue-600 px-8 py-4 rounded-2xl w-full items-center">
-                        <Text className="text-white font-semibold text-lg">Test Navigation</Text>
-                    </TouchableOpacity>
-                </Link>
-            </View>
+    const handleSave = () => {
+        // Handle save logic here
+        console.log("Saved:", { title, date });
+    };
+
+    const formattedDate = date.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    });
+    return (
+        //testing component integration
+        <View className="flex-1 ">
+            <Card>
+                <Input
+                    label="Holiday Title"
+                    type="text"
+                    value={title}
+                    onChangeText={setTitle}
+                    placeholder="Enter holiday name..."
+                />
+
+                {/* 2. Calendar Modal Usage */}
+                <Input
+                    label="Holiday Date"
+                    type="calendar"
+                    value={formattedDate}
+                    dateValue={date}
+                    onChangeDate={(newDate: Date) => setDate(newDate)}
+                />
+                <Button label="Save Changes" onPress={handleSave} />
+            </Card>
         </View>
     );
 }
