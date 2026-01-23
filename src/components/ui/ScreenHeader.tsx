@@ -21,9 +21,15 @@ export const ScreenHeader = ({ title, showBack = true }: Props) => {
                 {showBack && (
                     <TouchableOpacity
                         onPress={() => router.back()}
-                        className="z-10 w-10 h-10 items-center justify-center rounded-full active:bg-slate-100"
+                        className="flex-row items-center -ml-2 py-2 px-3 rounded-xl active:bg-slate-100"
                     >
-                        <ChevronLeft size={28} color={Colors.slate[800]} strokeWidth={2.5} />
+                        <ChevronLeft size={24} color={Colors.slate[800]} strokeWidth={2.5} />
+                        <Text
+                            style={{ color: Colors.slate[800] }}
+                            className="text-[17px] font-medium ml-1"
+                        >
+                            Back
+                        </Text>
                     </TouchableOpacity>
                 )}
                 <View className="absolute left-0 right-0 top-0 bottom-0 items-center justify-center">

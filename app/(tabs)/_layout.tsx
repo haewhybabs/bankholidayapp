@@ -20,14 +20,14 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     title: 'Home',
-                    tabBarIcon: ({ color }) => <Home size={24} color={color} />,
+                    tabBarIcon: ({ color }) => <Home size={24} color={color} pointerEvents="none" />,
                 }}
             />
             <Tabs.Screen
                 name="regions"
                 options={{
                     title: 'Regions',
-                    tabBarIcon: ({ color }) => <MapPin size={24} color={color} />,
+                    tabBarIcon: ({ color }) => <MapPin size={24} color={color} pointerEvents="none" />,
                 }}
             />
 
@@ -35,7 +35,7 @@ export default function TabLayout() {
                 name="settings"
                 options={{
                     title: 'Settings',
-                    tabBarIcon: ({ color }) => <Settings size={24} color={color} />,
+                    tabBarIcon: ({ color }) => <Settings size={24} color={color} pointerEvents="none" />,
                 }}
             />
         </Tabs>

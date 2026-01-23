@@ -32,6 +32,7 @@ export const HomeHeader = ({ onRefresh, isRefreshing }: Props) => {
                     size={22}
                     color={Colors.slate[500]}
                     className={isRefreshing ? 'opacity-30' : 'opacity-100'}
+                    pointerEvents="none"
                 />
             </TouchableOpacity>
         </View>

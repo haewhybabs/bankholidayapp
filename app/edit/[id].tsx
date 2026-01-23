@@ -10,7 +10,8 @@ import { Button } from '@/src/components/ui/Button';
 import { Heading } from '@/src/components/ui/Typography';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomAlert } from '@/src/components/ui/CustomAlert';
-import { CalendarClock } from 'lucide-react-native';
+import { CalendarClock, X } from 'lucide-react-native';
+import { Colors } from '@/src/theme/colors';
 
 export default function EditHolidayScreen() {
     const { id } = useLocalSearchParams();
@@ -71,7 +72,9 @@ export default function EditHolidayScreen() {
                     onPress={() => router.back()}
                     className="bg-slate-50 p-2 rounded-full border border-slate-100"
                 >
-                    <Text className="text-slate-600 text-lg">{'Cancel'}</Text>
+                    <View pointerEvents="none">
+                        <X size={24} color={Colors.slate[600]} strokeWidth={2.5} />
+                    </View>
                 </TouchableOpacity>
             </View>
             <ScrollView className="flex-1 bg-white px-6">
