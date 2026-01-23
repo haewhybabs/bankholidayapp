@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, ScrollView, RefreshControl, Alert } from 'react-native';
+import { View, ScrollView, RefreshControl, Alert, Linking } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useDispatch } from 'react-redux';
@@ -21,6 +21,8 @@ import { Holiday } from '@/src/types/holiday';
 import { HomeHeader } from '@/src/components/home/HomeHeader';
 import { CustomAlert } from '@/src/components/ui/CustomAlert';
 import { Trash2, CalendarCheck } from 'lucide-react-native';
+import { PermissionCard } from '@/src/components/feedback/PermissionCard';
+import { useCalendarPermission } from '@/src/hooks/useCalendarPermission';
 
 export default function HomeScreen() {
     const router = useRouter();
@@ -28,6 +30,7 @@ export default function HomeScreen() {
 
     const { holidays, isLoading, error, refresh } = useHolidays();
     const { addToCalendar } = useCalendar();
+    const { isGranted } = useCalendarPermission();
 
     const [idToDelete, setIdToDelete] = useState<string | null>(null);
     const [showSuccess, setShowSuccess] = useState<{ visible: boolean; title: string } | null>(null);
@@ -100,6 +103,8 @@ export default function HomeScreen() {
             <HomeHeader onRefresh={refresh} isRefreshing={isLoading} />
 
             <OfflineBanner />
+
+            <PermissionCard visible={!isGranted} />
 
             <ScrollView
                 className="flex-1 bg-slate-50"
