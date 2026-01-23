@@ -32,7 +32,9 @@ export default function HomeScreen() {
     const [idToDelete, setIdToDelete] = useState<string | null>(null);
     const [showSuccess, setShowSuccess] = useState<{ visible: boolean; title: string } | null>(null);
     const [isSyncing, setIsSyncing] = useState(false);
+    const [errorAlert, setErrorAlert] = useState<{ visible: boolean; title: string; message: string } | null>(null);
     const insets = useSafeAreaInsets();
+
 
     const [isShowingSkeleton, setIsShowingSkeleton] = useState(true);
 
@@ -70,11 +72,23 @@ export default function HomeScreen() {
 
     const handleAddToCalendar = async (holiday: Holiday) => {
         setIsSyncing(true);
-        const success = await addToCalendar(holiday.title, holiday.date);
+        const result = await addToCalendar(holiday.title, holiday.date);
         setIsSyncing(false);
 
-        if (success) {
+        if (result.success) {
             setShowSuccess({ visible: true, title: holiday.title });
+        } else if (result.error === 'already_exists') {
+            setErrorAlert({
+                visible: true,
+                title: "Already Synced",
+                message: `"${holiday.title}" is already in your calendar.`
+            });
+        } else if (result.error === 'permission') {
+            setErrorAlert({
+                visible: true,
+                title: "Permission Denied",
+                message: "We need calendar access to add holidays. Please check your system settings."
+            });
         }
     };
 
@@ -150,6 +164,16 @@ export default function HomeScreen() {
                 cancelText='Close'
                 onConfirm={() => setShowSuccess(null)}
                 onClose={() => setShowSuccess(null)}
+            />
+            <CustomAlert
+                visible={!!errorAlert?.visible}
+                type="warning"
+                icon={CalendarCheck}
+                title={errorAlert?.title || ""}
+                description={errorAlert?.message || ""}
+                confirmText="Got it"
+                onConfirm={() => setErrorAlert(null)}
+                onClose={() => setErrorAlert(null)}
             />
         </View>
     );

@@ -37,17 +37,29 @@ export const useCalendar = () => {
 
     const addToCalendar = async (title: string, date: string) => {
         const hasPermission = await requestPermissions();
-        if (!hasPermission) {
-            Alert.alert('Permission Required', 'Please enable calendar access in settings.');
-            return;
-        }
-
-        const calendarId = await findOrCreateCalendar();
-        const startDate = new Date(date);
-        const endDate = new Date(date);
-        endDate.setHours(23, 59, 59);
+        if (!hasPermission) return { success: false, error: 'permission' };
 
         try {
+            const calendarId = await findOrCreateCalendar();
+            const startDate = new Date(date);
+            const endDate = new Date(date);
+            endDate.setHours(23, 59, 59);
+
+            // 1. Check for existing events in this time range
+            const existingEvents = await Calendar.getEventsAsync(
+                [calendarId],
+                startDate,
+                endDate
+            );
+
+            // 2. See if any existing event matches the title
+            const isAlreadyAdded = existingEvents.some(event => event.title === title);
+
+            if (isAlreadyAdded) {
+                return { success: false, error: 'already_exists' };
+            }
+
+            // 3. Proceed if no duplicate found
             await Calendar.createEventAsync(calendarId, {
                 title,
                 startDate,
@@ -55,10 +67,11 @@ export const useCalendar = () => {
                 allDay: true,
                 notes: 'Synced from Bank Holiday App',
             });
-            return true;
+
+            return { success: true };
         } catch (e) {
             console.error(e);
-            return false;
+            return { success: false, error: 'unknown' };
         }
     };
 
