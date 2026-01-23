@@ -17,7 +17,9 @@ export default function RootLayout() {
                                 headerShown: false,
                                 animation: 'slide_from_right',
                             }}
+                            initialRouteName="splash"
                         >
+                            <Stack.Screen name="splash" />
                             <Stack.Screen
                                 name="(tabs)"
                                 options={{ headerShown: false }}
@@ -26,8 +28,12 @@ export default function RootLayout() {
                             <Stack.Screen
                                 name="edit/[id]"
                                 options={{
-                                    presentation: 'modal',
-                                    headerTitle: 'Edit Holiday',
+
+                                    presentation: "modal",
+
+                                    headerShown: false,
+
+
                                     headerRight: () => (
                                         <Link href="../" className="text-blue-600 font-semibold px-2">
                                             Cancel

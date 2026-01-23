@@ -8,6 +8,7 @@ import { updateHoliday } from '@/src/store/holidaySlice';
 import { Input } from '@/src/components/ui/Input';
 import { Button } from '@/src/components/ui/Button';
 import { Heading } from '@/src/components/ui/Typography';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function EditHolidayScreen() {
     const { id } = useLocalSearchParams();
@@ -41,26 +42,28 @@ export default function EditHolidayScreen() {
     };
 
     return (
-        <ScrollView className="flex-1 bg-white p-6">
-            <Heading>Edit Details</Heading>
+        <SafeAreaView className="flex-1 bg-white">
+            <ScrollView className="flex-1 bg-white p-6">
+                <Heading>Edit Details</Heading>
 
-            <Input
-                label="Holiday Name"
-                value={title}
-                onChangeText={setTitle}
-            />
+                <Input
+                    label="Holiday Name"
+                    value={title}
+                    onChangeText={setTitle}
+                />
 
-            <Input
-                label="Date"
-                type="calendar"
-                value={date.toLocaleDateString('en-GB')}
-                dateValue={date}
-                onChangeDate={setDate}
-            />
+                <Input
+                    label="Date"
+                    type="calendar"
+                    value={date.toLocaleDateString('en-GB')}
+                    dateValue={date}
+                    onChangeDate={setDate}
+                />
 
-            <View className="mt-10">
-                <Button label="Update Holiday" onPress={handleSave} />
-            </View>
-        </ScrollView>
+                <View className="mt-10">
+                    <Button label="Update Holiday" onPress={handleSave} />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 }

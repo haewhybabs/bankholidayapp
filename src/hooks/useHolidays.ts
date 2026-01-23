@@ -24,5 +24,6 @@ export const useHolidays = () => {
         isOffline,
         error,
         refresh,
+        status
     };
 };

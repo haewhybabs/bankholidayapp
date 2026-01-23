@@ -20,7 +20,6 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage: AsyncStorage,
-    // only holidays will be persisted
     whitelist: ['holidays'],
 };
 

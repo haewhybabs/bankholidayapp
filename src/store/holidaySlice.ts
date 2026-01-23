@@ -3,12 +3,42 @@ import { Holiday } from '../types/holiday';
 import { processHolidays } from '../utils/holidayUtils';
 
 // Async thunk to fetch the data
-export const fetchHolidays = createAsyncThunk('holidays/fetch', async () => {
-    const response = await fetch('https://www.gov.uk/bank-holidays.json');
-    if (!response.ok) throw new Error('Failed to fetch holidays');
-    const data = await response.json();
-    return processHolidays(data);
+export const fetchHolidays = createAsyncThunk<
+    Holiday[],
+    void,
+    { rejectValue: string }
+>('holidays/fetch', async (_, { rejectWithValue }) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+    try {
+        const URL = 'https://www.gov.uk/bank-holidays.json';
+
+        const response = await fetch(URL, {
+            method: 'GET',
+            signal: controller.signal,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            return rejectWithValue(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        return processHolidays(data);
+    } catch (err: any) {
+        if (err.name === 'AbortError') {
+            return rejectWithValue('Request timed out');
+        }
+        return rejectWithValue(err.message || 'Network error');
+    } finally {
+        clearTimeout(timeoutId);
+    }
 });
+
 
 interface HolidayState {
     items: Holiday[];

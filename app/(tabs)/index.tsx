@@ -10,7 +10,6 @@ import { deleteHoliday } from '@/src/store/holidaySlice';
 import { AppDispatch } from '@/src/store';
 
 // UI Components
-import { Heading, Label } from '@/src/components/ui/Typography';
 import { OfflineBanner } from '@/src/components/feedback/OfflineBanner';
 import { SkeletonLoader } from '@/src/components/list/SkeletonLoader';
 import { EmptyState } from '@/src/components/feedback/EmptyState';
