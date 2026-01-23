@@ -49,6 +49,11 @@ export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: P
                             <Text className="font-bold text-slate-900 text-[16px] mb-0.5">
                                 {holiday.title}
                             </Text>
+                            {holiday.region && (
+                                <Text className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full uppercase font-bold tracking-tighter">
+                                    {holiday.region}
+                                </Text>
+                            )}
 
                             {/* Inline Date and Action */}
                             <View className="flex-row items-center">

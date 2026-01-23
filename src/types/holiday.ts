@@ -14,4 +14,5 @@ export interface GovResponse {
 
 export interface Holiday extends RawEvent {
     id: string;
+    region?: string;
 }

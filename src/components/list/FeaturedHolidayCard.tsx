@@ -37,6 +37,11 @@ export const FeaturedHolidayCard = ({
 
             <View className="p-6">
                 <Text className="text-3xl font-black text-slate-900 mb-1">{holiday.title}</Text>
+                {holiday.region && (
+                    <Text className="text-[10px]  text-slate-500 py-0.5 rounded-full uppercase font-bold tracking-tighter">
+                        {holiday.region}
+                    </Text>
+                )}
                 <Text className="text-slate-500 mb-6 text-lg">{holiday.date}</Text>
 
                 <View className="flex-row gap-3">
