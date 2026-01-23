@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Platform, Modal, Text } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { Calendar } from 'lucide-react-native';
+import { Calendar, AlertCircle } from 'lucide-react-native';
 import { Label } from './Typography';
 
 interface InputProps {
@@ -12,6 +12,7 @@ interface InputProps {
     onChangeText?: (text: string) => void;
     placeholder?: string;
     type?: 'text' | 'calendar';
+    error?: string;
 }
 
 export const Input = ({
@@ -21,11 +22,13 @@ export const Input = ({
     onChangeDate,
     onChangeText,
     placeholder,
-    type = 'text'
+    type = 'text',
+    error
 }: InputProps) => {
     const [showPicker, setShowPicker] = useState(false);
     const [tempDate, setTempDate] = useState(dateValue);
     const isCalendar = type === 'calendar';
+    const hasError = !!error;
 
     const onDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
         if (Platform.OS === 'android') {
@@ -54,14 +57,19 @@ export const Input = ({
                     textAlignVertical: 'center',
                     paddingVertical: Platform.OS === 'ios' ? 16 : 12,
                 }}
-                className="bg-slate-50 px-4 rounded-xl border border-slate-200 text-slate-900 text-[16px] min-h-[56px]"
-                placeholderTextColor="#94a3b8"
+                className={`px-4 rounded-xl border text-[16px] min-h-[56px] ${hasError
+                    ? 'bg-rose-50 border-rose-300 text-rose-900'
+                    : 'bg-slate-50 border-slate-200 text-slate-900'
+                    }`}
+                placeholderTextColor={hasError ? '#fca5a5' : '#94a3b8'}
             />
-            {isCalendar && (
-                <View className="absolute right-4 top-[16px]">
+            <View className="absolute right-4 top-[16px]">
+                {hasError ? (
+                    <AlertCircle size={20} color="#e11d48" />
+                ) : isCalendar ? (
                     <Calendar size={20} color="#94a3b8" />
-                </View>
-            )}
+                ) : null}
+            </View>
         </View>
     );
 
@@ -76,6 +84,12 @@ export const Input = ({
                 </TouchableOpacity>
             ) : (
                 InputContent
+            )}
+
+            {hasError && (
+                <Text className="text-rose-600 text-xs font-bold mt-1.5 ml-1">
+                    {error}
+                </Text>
             )}
 
             {/* iOS Modal Wrapper */}
