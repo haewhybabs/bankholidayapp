@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/src/store';
@@ -10,7 +10,7 @@ import { Button } from '@/src/components/ui/Button';
 import { Heading } from '@/src/components/ui/Typography';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomAlert } from '@/src/components/ui/CustomAlert';
-import { CalendarClock, AlertCircle } from 'lucide-react-native';
+import { CalendarClock, AlertCircle, ChevronLeft } from 'lucide-react-native';
 
 export default function EditHolidayScreen() {
     const { id } = useLocalSearchParams();
@@ -66,7 +66,15 @@ export default function EditHolidayScreen() {
 
     return (
         <SafeAreaView className="flex-1 bg-white">
-            <ScrollView className="flex-1 bg-white p-6">
+            <View className="px-6 py-4 flex-row items-center justify-between">
+                <TouchableOpacity
+                    onPress={() => router.back()}
+                    className="bg-slate-50 p-2 rounded-full border border-slate-100"
+                >
+                    <ChevronLeft size={24} color="#64748b" />
+                </TouchableOpacity>
+            </View>
+            <ScrollView className="flex-1 bg-white px-6">
                 <Heading>Edit Details</Heading>
 
                 <View className="mt-8">

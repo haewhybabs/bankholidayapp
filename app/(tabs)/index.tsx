@@ -30,11 +30,11 @@ export default function HomeScreen() {
 
     const { holidays, isLoading, error, refresh } = useHolidays();
     const { addToCalendar } = useCalendar();
-    const { isGranted } = useCalendarPermission();
+    const { isGranted, status } = useCalendarPermission();
 
     const [idToDelete, setIdToDelete] = useState<string | null>(null);
     const [showSuccess, setShowSuccess] = useState<{ visible: boolean; title: string } | null>(null);
-    const [isSyncing, setIsSyncing] = useState(false);
+    const [syncingId, setSyncingId] = useState<string | null>(null);
     const [errorAlert, setErrorAlert] = useState<{ visible: boolean; title: string; message: string } | null>(null);
     const insets = useSafeAreaInsets();
 
@@ -74,9 +74,9 @@ export default function HomeScreen() {
     }
 
     const handleAddToCalendar = async (holiday: Holiday) => {
-        setIsSyncing(true);
+        setSyncingId(holiday.id);
         const result = await addToCalendar(holiday.title, holiday.date);
-        setIsSyncing(false);
+        setSyncingId(null);
 
         if (result.success) {
             setShowSuccess({ visible: true, title: holiday.title });
@@ -104,7 +104,7 @@ export default function HomeScreen() {
 
             <OfflineBanner />
 
-            <PermissionCard visible={!isGranted} />
+            <PermissionCard visible={status === 'denied'} />
 
             <ScrollView
                 className="flex-1 bg-slate-50"
@@ -127,7 +127,7 @@ export default function HomeScreen() {
                             {featured && (
                                 <FeaturedHolidayCard
                                     holiday={featured}
-                                    isLoading={isSyncing}
+                                    isLoading={syncingId === featured.id}
                                     onAdd={() => handleAddToCalendar(featured)}
                                     onPress={() => router.push(`/edit/${featured.id}`)}
                                 />

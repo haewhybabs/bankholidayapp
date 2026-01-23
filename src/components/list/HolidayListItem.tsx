@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Animated } from 'react-native';
 import { Calendar, ChevronRight, Trash2 } from 'lucide-react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { Holiday } from '@/src/types/holiday';
+import { formatHolidayDate } from '@/src/utils/formatUtils';
 
 interface Props {
     holiday: Holiday;
@@ -50,7 +51,7 @@ export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: P
                                 {holiday.title}
                             </Text>
                             {holiday.region && (
-                                <Text className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full uppercase font-bold tracking-tighter">
+                                <Text numberOfLines={1} className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full uppercase font-bold tracking-tighter">
                                     {holiday.region}
                                 </Text>
                             )}
@@ -58,7 +59,7 @@ export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: P
                             {/* Inline Date and Action */}
                             <View className="flex-row items-center">
                                 <Text className="text-slate-500 text-xs font-medium">
-                                    {holiday.date}
+                                    {formatHolidayDate(holiday.date)}
                                 </Text>
 
                                 <Text className="text-slate-300 mx-2">•</Text>
