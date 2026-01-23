@@ -19,6 +19,8 @@ import { ConfirmationModal } from '@/src/components/modals/ConfirmationModal';
 import { useCalendar } from '@/src/hooks/useCalendar';
 import { Holiday } from '@/src/types/holiday';
 import { HomeHeader } from '@/src/components/home/HomeHeader';
+import { CustomAlert } from '@/src/components/ui/CustomAlert';
+import { Trash2, CalendarCheck } from 'lucide-react-native';
 
 export default function HomeScreen() {
     const router = useRouter();
@@ -28,6 +30,7 @@ export default function HomeScreen() {
     const { addToCalendar } = useCalendar();
 
     const [idToDelete, setIdToDelete] = useState<string | null>(null);
+    const [showSuccess, setShowSuccess] = useState<{ visible: boolean; title: string } | null>(null);
     const [isSyncing, setIsSyncing] = useState(false);
     const insets = useSafeAreaInsets();
 
@@ -71,7 +74,7 @@ export default function HomeScreen() {
         setIsSyncing(false);
 
         if (success) {
-            Alert.alert("Success", `${holiday.title} added to your calendar!`);
+            setShowSuccess({ visible: true, title: holiday.title });
         }
     };
 
@@ -125,14 +128,28 @@ export default function HomeScreen() {
                 </View>
             </ScrollView>
 
-            <ConfirmationModal
+            {/* Alert for Deletion */}
+            <CustomAlert
                 visible={!!idToDelete}
+                type="danger"
+                icon={Trash2}
                 title="Remove Holiday"
-                message="Are you sure you want to remove this holiday from your list? This won't affect the official UK calendar."
-                confirmLabel="Remove"
-                isDestructive={true}
+                description="Are you sure? This will remove the holiday from your local list, but won't affect the official UK calendar."
+                confirmText="Remove"
                 onConfirm={handleConfirmDelete}
-                onCancel={() => setIdToDelete(null)}
+                onClose={() => setIdToDelete(null)}
+            />
+
+            <CustomAlert
+                visible={!!showSuccess?.visible}
+                type="info"
+                icon={CalendarCheck}
+                title="Added to Calendar"
+                description={`${showSuccess?.title} has been successfully synced to your device calendar.`}
+                confirmText="Great"
+                cancelText='Close'
+                onConfirm={() => setShowSuccess(null)}
+                onClose={() => setShowSuccess(null)}
             />
         </View>
     );
