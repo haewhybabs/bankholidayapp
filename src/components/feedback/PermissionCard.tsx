@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, Linking } from 'react-native';
 import { ShieldAlert, ChevronRight } from 'lucide-react-native';
+import { Colors } from '@/src/theme/colors';
 
 interface Props {
     visible: boolean;
@@ -20,7 +21,7 @@ export const PermissionCard = ({ visible }: Props) => {
                 <View className="flex-row items-center flex-1">
                     {/* Darker rose icon for contrast */}
                     <View className="bg-rose-100 p-2 rounded-xl">
-                        <ShieldAlert size={18} color="#e11d48" />
+                        <ShieldAlert size={18} color={Colors.rose[600]} />
                     </View>
 
                     <View className="ml-3 flex-1">
@@ -35,7 +36,7 @@ export const PermissionCard = ({ visible }: Props) => {
 
                 <View className="flex-row items-center">
                     <Text className="text-rose-500 text-[11px] font-bold mr-1">Fix</Text>
-                    <ChevronRight size={14} color="#f43f5e" />
+                    <ChevronRight size={14} color={Colors.rose[600]} />
                 </View>
             </TouchableOpacity>
         </View>

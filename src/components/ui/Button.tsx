@@ -1,3 +1,4 @@
+import { Colors } from '@/src/theme/colors';
 import { TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 
 interface ButtonProps {
@@ -40,7 +41,7 @@ export const Button = ({
             className={`py-4 px-6 rounded-2xl flex-row justify-center items-center ${variants[variant]} ${isInteractionDisabled ? 'opacity-50' : ''} ${className}`}
         >
             {loading ? (
-                <ActivityIndicator color={variant === 'primary' ? 'white' : '#2563eb'} />
+                <ActivityIndicator color={variant === 'primary' ? Colors.white : Colors.primary[600]} />
             ) : (
                 <Text className={`font-bold text-lg ${textColors[variant]}`}>{label}</Text>
             )}

@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Calendar, RotateCcw } from 'lucide-react-native';
+import { Colors } from '@/src/theme/colors';
 
 interface Props {
     onRefresh: () => void;
@@ -13,7 +14,7 @@ export const HomeHeader = ({ onRefresh, isRefreshing }: Props) => {
         <View className="flex-row items-center justify-between px-6 py-4 bg-white">
 
             <View className="w-10 h-10 items-start justify-center">
-                <Calendar size={24} color="#0f172a" strokeWidth={2.5} />
+                <Calendar size={24} color={Colors.slate[500]} strokeWidth={2.5} />
             </View>
 
 
@@ -29,7 +30,7 @@ export const HomeHeader = ({ onRefresh, isRefreshing }: Props) => {
             >
                 <RotateCcw
                     size={22}
-                    color="#0f172a"
+                    color={Colors.slate[500]}
                     className={isRefreshing ? 'opacity-30' : 'opacity-100'}
                 />
             </TouchableOpacity>

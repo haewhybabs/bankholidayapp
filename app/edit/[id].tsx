@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Text } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/src/store';
@@ -10,7 +10,7 @@ import { Button } from '@/src/components/ui/Button';
 import { Heading } from '@/src/components/ui/Typography';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomAlert } from '@/src/components/ui/CustomAlert';
-import { CalendarClock, AlertCircle, ChevronLeft } from 'lucide-react-native';
+import { CalendarClock } from 'lucide-react-native';
 
 export default function EditHolidayScreen() {
     const { id } = useLocalSearchParams();
@@ -71,7 +71,7 @@ export default function EditHolidayScreen() {
                     onPress={() => router.back()}
                     className="bg-slate-50 p-2 rounded-full border border-slate-100"
                 >
-                    <ChevronLeft size={24} color="#64748b" />
+                    <Text className="text-slate-600 text-lg">{'Cancel'}</Text>
                 </TouchableOpacity>
             </View>
             <ScrollView className="flex-1 bg-white px-6">

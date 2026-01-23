@@ -10,6 +10,7 @@ import { RootState } from '@/src/store';
 import { ScreenHeader } from '@/src/components/ui/ScreenHeader';
 import { useCalendarPermission } from '@/src/hooks/useCalendarPermission';
 import { useCalendar } from '@/src/hooks/useCalendar';
+import { Colors } from '@/src/theme/colors';
 
 
 export default function SettingsScreen() {
@@ -66,7 +67,7 @@ export default function SettingsScreen() {
 
                 <View className="flex-row items-center bg-white p-4 rounded-3xl mb-3 border border-slate-100 shadow-sm">
                     <View className="bg-blue-50 p-3 rounded-2xl mr-4">
-                        <CalendarIcon size={20} color="#2563eb" />
+                        <CalendarIcon size={20} color={Colors.primary[600]} />
                     </View>
                     <View className="flex-1">
                         <Text className="font-bold text-slate-900 text-[15px]">Calendar Sync</Text>
@@ -77,8 +78,8 @@ export default function SettingsScreen() {
                     <Switch
                         value={isGranted}
                         onValueChange={handlePermissionToggle}
-                        trackColor={{ false: '#e2e8f0', true: '#f4f4f5' }}
-                        thumbColor={isGranted ? '#2563eb' : '#f4f4f5'}
+                        trackColor={{ false: Colors.slate[100], true: Colors.primary[50] }}
+                        thumbColor={isGranted ? Colors.primary[600] : Colors.slate[100]}
                     />
                 </View>
 

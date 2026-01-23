@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
 import { LucideIcon } from 'lucide-react-native';
+import { Colors } from '@/src/theme/colors';
 
 interface CustomAlertProps {
     visible: boolean;
@@ -27,9 +28,9 @@ export const CustomAlert = ({
 }: CustomAlertProps) => {
 
     const config = {
-        danger: { bg: 'bg-red-50', icon: '#EF4444', btn: 'bg-red-500' },
-        warning: { bg: 'bg-orange-50', icon: '#F59E0B', btn: 'bg-orange-500' },
-        info: { bg: 'bg-blue-50', icon: '#2563eb', btn: 'bg-blue-600' }
+        danger: { bg: 'bg-red-50', icon: Colors.rose[600], btn: 'bg-red-500' },
+        warning: { bg: 'bg-orange-50', icon: Colors.amber[500], btn: 'bg-orange-500' },
+        info: { bg: 'bg-blue-50', icon: Colors.primary[600], btn: 'bg-blue-600' }
     }[type];
 
     return (

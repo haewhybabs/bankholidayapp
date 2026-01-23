@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity, Platform, Modal, Text } from 'react-
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { Calendar, AlertCircle } from 'lucide-react-native';
 import { Label } from './Typography';
+import { Colors } from '@/src/theme/colors';
 
 interface InputProps {
     label: string;
@@ -61,13 +62,13 @@ export const Input = ({
                     ? 'bg-rose-50 border-rose-300 text-rose-900'
                     : 'bg-slate-50 border-slate-200 text-slate-900'
                     }`}
-                placeholderTextColor={hasError ? '#fca5a5' : '#94a3b8'}
+                placeholderTextColor={hasError ? Colors.rose[300] : Colors.slate[400]}
             />
             <View className="absolute right-4 top-[16px]">
                 {hasError ? (
-                    <AlertCircle size={20} color="#e11d48" />
+                    <AlertCircle size={20} color={Colors.rose[600]} />
                 ) : isCalendar ? (
-                    <Calendar size={20} color="#94a3b8" />
+                    <Calendar size={20} color={Colors.slate[500]} />
                 ) : null}
             </View>
         </View>

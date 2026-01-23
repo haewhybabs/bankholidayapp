@@ -1,3 +1,4 @@
+import { Colors } from '@/src/theme/colors';
 import { Tabs } from 'expo-router';
 import { Home, MapPin, Bell, Settings } from 'lucide-react-native';
 import { Platform } from 'react-native';
@@ -7,8 +8,8 @@ export default function TabLayout() {
         <Tabs screenOptions={{
             headerShown: false,
 
-            tabBarActiveTintColor: '#2563eb',
-            tabBarInactiveTintColor: '#94a3b8',
+            tabBarActiveTintColor: Colors.primary[600],
+            tabBarInactiveTintColor: Colors.slate[500],
             tabBarLabelStyle: { marginBottom: 15 },
 
 

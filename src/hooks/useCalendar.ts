@@ -1,5 +1,6 @@
 import * as Calendar from 'expo-calendar';
 import { Alert, Platform } from 'react-native';
+import { Colors } from '../theme/colors';
 
 export const useCalendar = () => {
     const requestPermissions = async () => {
@@ -25,7 +26,7 @@ export const useCalendar = () => {
 
         return await Calendar.createCalendarAsync({
             title: 'Bank Holidays UK',
-            color: '#2563eb',
+            color: Colors.primary[600],
             entityType: Calendar.EntityTypes.EVENT,
             sourceId: source.id,
             source: source,

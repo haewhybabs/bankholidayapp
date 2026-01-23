@@ -4,6 +4,7 @@ import { Calendar, ChevronRight, Trash2 } from 'lucide-react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { Holiday } from '@/src/types/holiday';
 import { formatHolidayDate } from '@/src/utils/formatUtils';
+import { Colors } from '@/src/theme/colors';
 
 interface Props {
     holiday: Holiday;
@@ -44,7 +45,7 @@ export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: P
                         activeOpacity={0.6}
                     >
                         <View className="bg-blue-50 p-3 rounded-2xl mr-4">
-                            <Calendar size={20} color="#2563eb" />
+                            <Calendar size={20} color={Colors.primary[600]} />
                         </View>
                         <View className="flex-1">
                             <Text className="font-bold text-slate-900 text-[16px] mb-0.5">
@@ -77,7 +78,7 @@ export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: P
                     </TouchableOpacity>
 
                     <View className="pl-2">
-                        <ChevronRight size={18} color="#cbd5e1" />
+                        <ChevronRight size={18} color={Colors.primary[300]} />
                     </View>
                 </View>
             </View>
