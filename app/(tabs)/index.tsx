@@ -124,6 +124,7 @@ export default function HomeScreen() {
                                     holiday={featured}
                                     isLoading={isSyncing}
                                     onAdd={() => handleAddToCalendar(featured)}
+                                    onPress={() => router.push(`/edit/${featured.id}`)}
                                 />
                             )}
 
@@ -134,6 +135,7 @@ export default function HomeScreen() {
                                         holiday={item}
                                         onPress={() => router.push(`/edit/${item.id}`)}
                                         onDelete={() => setIdToDelete(item.id)}
+                                        onAddCalendar={() => handleAddToCalendar(item)}
                                     />
                                 ))}
                             </View>

@@ -1,4 +1,3 @@
-// src/components/list/HolidayListItem.tsx
 import React from 'react';
 import { View, Text, TouchableOpacity, Animated } from 'react-native';
 import { Calendar, ChevronRight, Trash2 } from 'lucide-react-native';
@@ -9,15 +8,11 @@ interface Props {
     holiday: Holiday;
     onPress: () => void;
     onDelete?: () => void;
+    onAddCalendar?: () => void;
 }
 
-export const HolidayListItem = ({ holiday, onPress, onDelete }: Props) => {
-
-
-    const renderRightActions = (
-        progress: Animated.AnimatedInterpolation<number>,
-        dragX: Animated.AnimatedInterpolation<number>
-    ) => {
+export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: Props) => {
+    const renderRightActions = (progress: any, dragX: any) => {
         const scale = dragX.interpolate({
             inputRange: [-80, 0],
             outputRange: [1, 0],
@@ -38,27 +33,48 @@ export const HolidayListItem = ({ holiday, onPress, onDelete }: Props) => {
     };
 
     return (
-        <Swipeable
-            renderRightActions={renderRightActions}
-            friction={2}
-            rightThreshold={40}
-        >
-            <TouchableOpacity
-                onPress={onPress}
-                activeOpacity={1} // Keep it 1 so the swipe feels like a physical layer
-                className="flex-row items-center bg-white mx-4 p-4 rounded-3xl mb-3 border border-slate-100 shadow-sm"
-            >
-                <View className="bg-blue-50 p-3 rounded-2xl mr-4">
-                    <Calendar size={20} color="#2563eb" />
-                </View>
+        <Swipeable renderRightActions={renderRightActions} friction={2}>
+            <View className="bg-white mx-4 rounded-3xl mb-3 border border-slate-100 shadow-sm overflow-hidden">
+                <View className="flex-row items-center p-4">
 
-                <View className="flex-1">
-                    <Text className="font-bold text-slate-900 text-[16px]">{holiday.title}</Text>
-                    <Text className="text-slate-500 text-xs mt-0.5">{holiday.date}</Text>
-                </View>
+                    <TouchableOpacity
+                        onPress={onPress}
+                        className="flex-1 flex-row items-center"
+                        activeOpacity={0.6}
+                    >
+                        <View className="bg-blue-50 p-3 rounded-2xl mr-4">
+                            <Calendar size={20} color="#2563eb" />
+                        </View>
+                        <View className="flex-1">
+                            <Text className="font-bold text-slate-900 text-[16px] mb-0.5">
+                                {holiday.title}
+                            </Text>
 
-                <ChevronRight size={18} color="#cbd5e1" />
-            </TouchableOpacity>
+                            {/* Inline Date and Action */}
+                            <View className="flex-row items-center">
+                                <Text className="text-slate-500 text-xs font-medium">
+                                    {holiday.date}
+                                </Text>
+
+                                <Text className="text-slate-300 mx-2">•</Text>
+
+                                <TouchableOpacity
+                                    onPress={onAddCalendar}
+                                    hitSlop={{ top: 15, bottom: 15, left: 10, right: 10 }}
+                                >
+                                    <Text className="text-blue-600 text-xs font-bold">
+                                        Add to Calendar
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+
+                    <View className="pl-2">
+                        <ChevronRight size={18} color="#cbd5e1" />
+                    </View>
+                </View>
+            </View>
         </Swipeable>
     );
 };
