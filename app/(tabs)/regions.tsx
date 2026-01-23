@@ -12,7 +12,7 @@ const REGIONS = [
 export default function RegionScreen() {
     return (
         <View className="flex-1 bg-slate-50">
-            <ScreenHeader title="Select Region" />
+            <ScreenHeader title="Regions" />
 
             <ScrollView className="flex-1 p-6">
                 <Text className="text-slate-400 font-bold uppercase tracking-widest text-[11px] mb-4 ml-1">

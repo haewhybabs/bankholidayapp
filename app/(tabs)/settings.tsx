@@ -36,7 +36,7 @@ export default function SettingsScreen() {
     return (
         <View className="flex-1 bg-slate-50">
             {/* Standardized Header */}
-            <ScreenHeader title="Settings" showBack={false} />
+            <ScreenHeader title="Settings" />
 
             <ScrollView className="flex-1 px-6 pt-6">
                 <Text className="text-slate-400 font-bold uppercase tracking-widest text-[11px] mb-4 ml-2">

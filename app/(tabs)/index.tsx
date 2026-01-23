@@ -31,6 +31,16 @@ export default function HomeScreen() {
     const [isSyncing, setIsSyncing] = useState(false);
     const insets = useSafeAreaInsets();
 
+    const [isShowingSkeleton, setIsShowingSkeleton] = useState(true);
+
+    // Artificial delay to demonstrate the transition/skeleton
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsShowingSkeleton(false);
+        }, 1200);
+        return () => clearTimeout(timer);
+    }, []);
+
 
     const { featured, remainder } = useMemo(() => {
         if (!holidays || holidays.length === 0) return { featured: null, remainder: [] };
@@ -45,8 +55,9 @@ export default function HomeScreen() {
         }
     };
 
+
     // Show skeleton only on initial load when list is empty
-    if (isLoading && (!holidays || holidays.length === 0)) {
+    if (isShowingSkeleton || (isLoading && holidays.length === 0)) {
         return (
             <SafeAreaView className="flex-1 bg-slate-50">
                 <SkeletonLoader />
@@ -56,8 +67,6 @@ export default function HomeScreen() {
 
     const handleAddToCalendar = async (holiday: Holiday) => {
         setIsSyncing(true);
-        // Note: Ensure holiday.date is in a format Date() can parse, 
-        // or use the raw ISO string if available.
         const success = await addToCalendar(holiday.title, holiday.date);
         setIsSyncing(false);
 

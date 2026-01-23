@@ -4,7 +4,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { store, persistor } from '@/src/store';
 import { OfflineProvider } from '@/src/context/OfflineContext';
+import * as SplashScreen from 'expo-splash-screen';
 import "../global.css";
+SplashScreen.preventAutoHideAsync().catch(() => { console.log('SplashScreen already hidden'); });
 
 export default function RootLayout() {
     return (
@@ -15,11 +17,9 @@ export default function RootLayout() {
                         <Stack
                             screenOptions={{
                                 headerShown: false,
-                                animation: 'slide_from_right',
                             }}
-                            initialRouteName="splash"
-                        >
-                            <Stack.Screen name="splash" />
+                            initialRouteName="index">
+                            <Stack.Screen name="index" />
                             <Stack.Screen
                                 name="(tabs)"
                                 options={{ headerShown: false }}
@@ -28,14 +28,10 @@ export default function RootLayout() {
                             <Stack.Screen
                                 name="edit/[id]"
                                 options={{
-
                                     presentation: "modal",
-
                                     headerShown: false,
-
-
                                     headerRight: () => (
-                                        <Link href="../" className="text-blue-600 font-semibold px-2">
+                                        <Link href="/(tabs)" className="text-blue-600 font-semibold px-2">
                                             Cancel
                                         </Link>
                                     )
