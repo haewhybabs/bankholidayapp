@@ -11,9 +11,10 @@ interface Props {
     onPress: () => void;
     onDelete?: () => void;
     onAddCalendar?: () => void;
+    testID?: string;
 }
 
-export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: Props) => {
+export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar, testID }: Props) => {
     const renderRightActions = (progress: any, dragX: any) => {
         const scale = dragX.interpolate({
             inputRange: [-80, 0],
@@ -24,6 +25,7 @@ export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: P
         return (
             <TouchableOpacity
                 onPress={onDelete}
+                testID={`${testID}-delete-button`}
                 activeOpacity={0.8}
                 className="bg-red-500 justify-center items-center w-20 mb-3 rounded-r-3xl"
             >
@@ -36,13 +38,14 @@ export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: P
 
     return (
         <Swipeable renderRightActions={renderRightActions} friction={2}>
-            <View className="bg-white mx-4 rounded-3xl mb-3 border border-slate-100 shadow-sm overflow-hidden">
+            <View className="bg-white mx-4 rounded-3xl mb-3 border border-slate-100 shadow-sm overflow-hidden" testID={testID}>
                 <View className="flex-row items-center p-4">
 
                     <TouchableOpacity
                         onPress={onPress}
                         className="flex-1 flex-row items-center"
                         activeOpacity={0.6}
+                        testID={`${testID}-pressable`}
                     >
                         <View className="bg-blue-50 p-3 rounded-2xl mr-4">
                             <Calendar size={20} color={Colors.primary[600]} />
@@ -67,6 +70,7 @@ export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar }: P
 
                                 <TouchableOpacity
                                     onPress={onAddCalendar}
+                                    testID={`${testID}-add-button`}
                                     hitSlop={{ top: 15, bottom: 15, left: 10, right: 10 }}
                                 >
                                     <Text className="text-blue-600 text-xs font-bold">

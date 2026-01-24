@@ -114,7 +114,7 @@ describe('EditHolidayScreen', () => {
         const titleInput = screen.getByDisplayValue('Test Holiday');
 
         fireEvent.changeText(titleInput, '');
-        fireEvent.press(screen.getByText('Save Changes'));
+        fireEvent.press(screen.getByTestId('save-button'));
 
         expect(screen.getByText('Holiday name is required')).toBeTruthy();
         expect(store.dispatch).not.toHaveBeenCalled();

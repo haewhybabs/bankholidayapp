@@ -8,16 +8,19 @@ export const FeaturedHolidayCard = ({
     holiday,
     onAdd,
     onPress,
-    isLoading
+    isLoading,
+    testID
 }: {
     holiday: Holiday,
     onAdd: () => void,
     onPress: () => void,
-    isLoading?: boolean
+    isLoading?: boolean,
+    testID?: string;
 }) => (
     <View className="px-4 mb-8">
         <TouchableOpacity
             activeOpacity={0.9}
+            testID={testID}
             onPress={onPress}
             className="bg-white rounded-[40px] shadow-xl shadow-slate-200 overflow-hidden border border-slate-50"
         >
@@ -47,7 +50,7 @@ export const FeaturedHolidayCard = ({
 
                 <View className="flex-row gap-3">
                     <View className="flex-1">
-                        <Button label="Add to Calendar" onPress={onAdd} loading={isLoading} />
+                        <Button testID={`${testID}-add-button`} label="Add to Calendar" onPress={onAdd} loading={isLoading} />
                     </View>
                 </View>
             </View>

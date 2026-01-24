@@ -96,17 +96,18 @@ export default function HomeScreen() {
     };
 
     return (
-        <View className="flex-1 bg-white">
+        <View className="flex-1 bg-white" testID="home-screen">
 
             <View style={{ height: insets.top }} className="bg-white" />
 
             <HomeHeader onRefresh={refresh} isRefreshing={isLoading} />
 
-            <OfflineBanner />
+            <OfflineBanner testID="offline-banner" />
 
             <PermissionCard visible={status === 'denied'} />
 
             <ScrollView
+                testID="holiday-scroll-view"
                 className="flex-1 bg-slate-50"
                 contentContainerStyle={{ paddingBottom: 20 }}
                 refreshControl={
@@ -119,6 +120,7 @@ export default function HomeScreen() {
 
                     {holidays.length === 0 ? (
                         <EmptyState
+                            testID="empty-state"
                             message={error || "No holidays found."}
                             onRetry={refresh}
                         />
@@ -126,6 +128,7 @@ export default function HomeScreen() {
                         <>
                             {featured && (
                                 <FeaturedHolidayCard
+                                    testID="featured-holiday-card"
                                     holiday={featured}
                                     isLoading={syncingId === featured.id}
                                     onAdd={() => handleAddToCalendar(featured)}
@@ -137,6 +140,7 @@ export default function HomeScreen() {
                                 {remainder.map((item) => (
                                     <HolidayListItem
                                         key={item.id}
+                                        testID={`holiday-item-${item.id}`}
                                         holiday={item}
                                         onPress={() => router.push(`/edit/${item.id}`)}
                                         onDelete={() => setIdToDelete(item.id)}
@@ -152,6 +156,7 @@ export default function HomeScreen() {
             {/* Alert for Deletion */}
             <CustomAlert
                 visible={!!idToDelete}
+                testID="delete-confirmation-alert"
                 type="danger"
                 icon={Trash2}
                 title="Remove Holiday"
@@ -163,6 +168,7 @@ export default function HomeScreen() {
 
             <CustomAlert
                 visible={!!showSuccess?.visible}
+                testID="sync-success-alert"
                 type="info"
                 icon={CalendarCheck}
                 title="Added to Calendar"
@@ -173,6 +179,7 @@ export default function HomeScreen() {
                 onClose={() => setShowSuccess(null)}
             />
             <CustomAlert
+                testID="sync-error-alert"
                 visible={!!errorAlert?.visible}
                 type="warning"
                 icon={CalendarCheck}
