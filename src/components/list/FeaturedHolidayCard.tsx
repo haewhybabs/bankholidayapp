@@ -71,7 +71,7 @@ export const FeaturedHolidayCard = ({
                                 <Text className="text-white text-xs font-bold uppercase tracking-widest">Next Holiday</Text>
                             </View>
                             <View className="bg-white/20 p-2 rounded-full border border-white/30">
-                                <Edit3 size={16} color="white" />
+                                <Edit3 size={16} color="white" pointerEvents='none' />
                             </View>
                         </View>
                     </ImageBackground>

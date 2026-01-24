@@ -30,7 +30,7 @@ export const HolidayListItem = ({ holiday, onPress, onDelete, onAddCalendar, tes
                 className="bg-red-500 justify-center items-center w-20 mb-3 rounded-r-3xl"
             >
                 <Animated.View style={{ transform: [{ scale }] }}>
-                    <Trash2 size={24} color="white" />
+                    <Trash2 size={24} color="white" pointerEvents='none' />
                 </Animated.View>
             </TouchableOpacity>
         );
