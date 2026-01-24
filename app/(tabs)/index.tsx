@@ -133,6 +133,7 @@ export default function HomeScreen() {
                                     isLoading={syncingId === featured.id}
                                     onAdd={() => handleAddToCalendar(featured)}
                                     onPress={() => router.push(`/edit/${featured.id}`)}
+                                    onDelete={() => setIdToDelete(featured.id)}
                                 />
                             )}
 

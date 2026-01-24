@@ -106,6 +106,17 @@ describe('HomeScreen', () => {
         expect(mockPush).toHaveBeenCalledWith('/edit/2');
     });
 
+    it('shows the delete confirmation alert when swipe-delete is triggered on featured holiday', async () => {
+        await renderWithProvider();
+
+        const deleteBtn = await screen.findByTestId('featured-holiday-card-swipe-delete');
+        fireEvent.press(deleteBtn);
+
+        // Verify the CustomAlert specifically for deletion
+        expect(await screen.findByTestId('delete-confirmation-alert')).toBeTruthy();
+        expect(screen.getByText('Remove Holiday')).toBeTruthy();
+    });
+
     it('shows the delete confirmation alert when swipe-delete is triggered', async () => {
         await renderWithProvider();
 
