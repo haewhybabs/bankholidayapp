@@ -10,7 +10,7 @@ import { Button } from '@/src/components/ui/Button';
 import { Heading } from '@/src/components/ui/Typography';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomAlert } from '@/src/components/ui/CustomAlert';
-import { CalendarClock, X } from 'lucide-react-native';
+import { CalendarClock, X, Save } from 'lucide-react-native';
 import { Colors } from '@/src/theme/colors';
 
 export default function EditHolidayScreen() {
@@ -23,6 +23,7 @@ export default function EditHolidayScreen() {
     );
 
     const [title, setTitle] = useState(holiday?.title || '');
+    const [showConfirm, setShowConfirm] = useState(false);
     const [date, setDate] = useState(new Date(holiday?.date || Date.now()));
 
     // Validation States
@@ -32,7 +33,6 @@ export default function EditHolidayScreen() {
     const handleSave = () => {
         const newErrors: { title?: string } = {};
 
-        // 1. Basic Empty Validation
         if (!title.trim()) {
             newErrors.title = "Holiday name is required";
         }
@@ -42,7 +42,6 @@ export default function EditHolidayScreen() {
             return;
         }
 
-        // 2. Date Constraint Validation: Must be within 6 months
         const sixMonthsFromNow = new Date();
         sixMonthsFromNow.setMonth(sixMonthsFromNow.getMonth() + 6);
 
@@ -56,12 +55,16 @@ export default function EditHolidayScreen() {
 
 
         setErrors({});
+        setShowConfirm(true);
+    };
+
+    const confirmAndSave = () => {
+        setShowConfirm(false);
         dispatch(updateHoliday({
             ...holiday!,
             title,
             date: date.toISOString().split('T')[0]
         }));
-
         router.back();
     };
 
@@ -116,6 +119,17 @@ export default function EditHolidayScreen() {
                 confirmText="Adjust Date"
                 onConfirm={() => setDateError(null)}
                 onClose={() => setDateError(null)}
+            />
+
+            <CustomAlert
+                visible={showConfirm}
+                type="info"
+                icon={Save}
+                title="Save Changes?"
+                description="Are you sure you want to update this holiday detail?"
+                confirmText="Yes, Save"
+                onConfirm={confirmAndSave}
+                onClose={() => setShowConfirm(false)}
             />
         </SafeAreaView>
     );

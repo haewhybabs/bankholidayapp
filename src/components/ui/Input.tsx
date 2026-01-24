@@ -68,7 +68,7 @@ export const Input = ({
                 {hasError ? (
                     <AlertCircle size={20} color={Colors.rose[600]} />
                 ) : isCalendar ? (
-                    <Calendar size={20} color={Colors.slate[500]} />
+                    <Calendar size={20} color={Colors.slate[500]} pointerEvents='none' />
                 ) : null}
             </View>
         </View>
@@ -114,7 +114,7 @@ export const Input = ({
                                 display="spinner"
                                 onChange={onDateChange}
                                 minimumDate={new Date()}
-                                textColor="#0f172a"
+                                textColor={Colors.slate[900]}
                                 style={{ height: 250, width: '100%' }}
                             />
                         </View>
@@ -130,7 +130,7 @@ export const Input = ({
                     display="default"
                     onChange={onDateChange}
                     minimumDate={new Date()}
-                    textColor="#0f172a"
+                    textColor={Colors.slate[900]}
                 />
             )}
         </View>
