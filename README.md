@@ -23,12 +23,12 @@ A React Native application that fetches UK bank holidays from the official UK Go
     - title not empty
     - date within 6 months
   - Saves updates in Redux (session persistence)
-  **(src/screens/edit/[id].tsx, src/store/holidaySlice.ts)**
+  **(app/edit/[id].tsx, src/store/holidaySlice.ts)**
 
 - **Add to Calendar**
   - Requests calendar permissions
   - Handles permission denial gracefully
-  **(src/components/holiday/HolidayListItem.tsx, src/hooks/useCalendar.ts, src/components/permission/PermissionCard.tsx)**
+  **(src/components/list/HolidayListItem.tsx, src/hooks/useCalendar.ts, src/components/list/PermissionCard.tsx)**
 
 - **Offline Support**
   - Uses `redux-persist` with `AsyncStorage` to cache holidays
@@ -65,16 +65,16 @@ A React Native application that fetches UK bank holidays from the official UK Go
   **(src/hooks/useHolidays.ts)**
 - Empty state appears if no holidays are available  
   **(src/components/feedback/EmptyState.tsx)**
-- Featured holiday card + list items render when data exists  
-  **(src/components/holiday/FeaturedHolidayCard.tsx, src/components/holiday/HolidayListItem.tsx)**
+- Featured list items render when data exists  
+  **(src/components/list/FeaturedHolidayCard.tsx, src/components/list/HolidayListItem.tsx)**
 
 ### Loading & UX States
 - Skeleton loader during initial fetch  
-  **(src/components/loading/SkeletonLoader.tsx)**
+  **(src/components/list/SkeletonLoader.tsx)**
 - Offline banner when cached data is in use  
-  **(src/components/offline/OfflineBanner.tsx)**
+  **(src/components/feedback/OfflineBanner.tsx)**
 - Permission card when calendar permission is denied  
-  **(src/components/permission/PermissionCard.tsx)**
+  **(src/components/feedback/PermissionCard.tsx)**
 
 ### List Interactions
 Each holiday item supports:
@@ -83,14 +83,14 @@ Each holiday item supports:
 - Swipe to delete
 - Confirmation modal before deletion
 
-**(src/components/holiday/HolidayListItem.tsx, src/components/modal/ConfirmationModal.tsx)**
+**(src/components/list/HolidayListItem.tsx, src/components/modals/ConfirmationModal.tsx)**
 
 ---
 
 ## ✍️ Edit Screen Flow
 
 - Reads holiday ID from route params and selects it from Redux  
-  **(src/screens/edit/[id].tsx)**
+  **(app/edit/[id].tsx)**
 - Inputs are pre-filled with existing title and date
 - Validation rules enforced before save
 - Save action opens a confirmation modal before dispatching Redux update  
