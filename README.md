@@ -1,4 +1,4 @@
-# Bank Holiday App [![CI Status](https://github.com/haewhybabs/bankholidayapp/actions/workflows/ci.yml/badge.svg)](https://github.com/haewhybabs/bankholidayapp/actions/workflows/ci.yml)
+[![CI Status](https://github.com/haewhybabs/bankholidayapp/actions/workflows/ci.yml/badge.svg)](https://github.com/haewhybabs/bankholidayapp/actions/workflows/ci.yml)
 
 # Bank Holiday App (React Native)
 
