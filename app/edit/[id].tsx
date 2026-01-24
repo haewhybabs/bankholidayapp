@@ -87,6 +87,7 @@ export default function EditHolidayScreen() {
                     <Input
                         label="Holiday Name"
                         value={title}
+                        testID="title-input"
                         onChangeText={(text) => {
                             setTitle(text);
                             if (errors.title) setErrors({ ...errors, title: undefined });
@@ -101,17 +102,19 @@ export default function EditHolidayScreen() {
                         value={date.toLocaleDateString('en-GB')}
                         dateValue={date}
                         onChangeDate={setDate}
+                        testID="date-input"
                     />
                 </View>
 
                 <View className="mt-10">
-                    <Button label="Save Changes" onPress={handleSave} />
+                    <Button label="Save Changes" onPress={handleSave} testID="save-button" />
                 </View>
             </ScrollView>
 
 
             <CustomAlert
                 visible={!!dateError?.visible}
+                testID="date-error-alert"
                 type="warning"
                 icon={CalendarClock}
                 title="Date Too Far"
@@ -123,6 +126,7 @@ export default function EditHolidayScreen() {
 
             <CustomAlert
                 visible={showConfirm}
+                testID="confirm-save-alert"
                 type="info"
                 icon={Save}
                 title="Save Changes?"

@@ -8,6 +8,7 @@ interface ButtonProps {
     loading?: boolean;
     disabled?: boolean;
     className?: string;
+    testID?: string;
 }
 
 export const Button = ({
@@ -16,7 +17,8 @@ export const Button = ({
     variant = 'primary',
     loading,
     disabled,
-    className = ''
+    className = '',
+    testID
 }: ButtonProps) => {
 
     const isInteractionDisabled = disabled || loading;
@@ -37,6 +39,7 @@ export const Button = ({
         <TouchableOpacity
             onPress={onPress}
             disabled={isInteractionDisabled}
+            testID={testID}
 
             className={`py-4 px-6 rounded-2xl flex-row justify-center items-center ${variants[variant]} ${isInteractionDisabled ? 'opacity-50' : ''} ${className}`}
         >

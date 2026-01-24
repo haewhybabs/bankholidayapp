@@ -14,6 +14,7 @@ interface InputProps {
     placeholder?: string;
     type?: 'text' | 'calendar';
     error?: string;
+    testID?: string;
 }
 
 export const Input = ({
@@ -24,7 +25,8 @@ export const Input = ({
     onChangeText,
     placeholder,
     type = 'text',
-    error
+    error,
+    testID
 }: InputProps) => {
     const [showPicker, setShowPicker] = useState(false);
     const [tempDate, setTempDate] = useState(dateValue);
@@ -75,12 +77,12 @@ export const Input = ({
     );
 
     return (
-        <View className="mb-6">
+        <View className="mb-6" testID={testID}>
             <Label>{label}</Label>
 
             {/* If calendar, wrap the input in a button to trigger the modal */}
             {isCalendar ? (
-                <TouchableOpacity onPress={() => setShowPicker(true)} activeOpacity={0.7}>
+                <TouchableOpacity onPress={() => setShowPicker(true)} activeOpacity={0.7} testID={`${testID}-trigger`}>
                     {InputContent}
                 </TouchableOpacity>
             ) : (

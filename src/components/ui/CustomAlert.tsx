@@ -13,6 +13,7 @@ interface CustomAlertProps {
     cancelText?: string;
     icon?: any;
     type?: 'danger' | 'warning' | 'info';
+    testID?: string;
 }
 
 export const CustomAlert = ({
@@ -24,7 +25,8 @@ export const CustomAlert = ({
     confirmText = "Confirm",
     cancelText = "Cancel",
     icon: Icon,
-    type = 'info'
+    type = 'info',
+    testID
 }: CustomAlertProps) => {
 
     const config = {
@@ -34,7 +36,7 @@ export const CustomAlert = ({
     }[type];
 
     return (
-        <Modal transparent visible={visible} animationType="fade" onRequestClose={onClose}>
+        <Modal transparent visible={visible} animationType="fade" onRequestClose={onClose} testID={testID}>
             <Pressable style={styles.overlay} onPress={onClose}>
 
                 <Pressable className="bg-white w-[85%] rounded-[40px] p-8 items-center shadow-2xl border border-slate-50">
@@ -60,6 +62,7 @@ export const CustomAlert = ({
                             onPress={onClose}
                             activeOpacity={0.7}
                             className="flex-1 bg-slate-100 py-4 rounded-3xl items-center"
+                            testID={`${testID}-cancel-button`}
                         >
                             <Text className="text-slate-600 font-bold text-base">
                                 {cancelText}
@@ -70,6 +73,7 @@ export const CustomAlert = ({
                             onPress={onConfirm}
                             activeOpacity={0.8}
                             className={`flex-1 py-4 rounded-3xl items-center shadow-md shadow-slate-200 ${config.btn}`}
+                            testID={`${testID}-confirm-button`}
                         >
                             <Text className="text-white font-black text-base">
                                 {confirmText}
